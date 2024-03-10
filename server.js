@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const port = 3000;
 
 
-const posts = require('./posts/posts');
 app.use(bodyParser.json());
 
 app.get('/posts', async (req, res) => {
