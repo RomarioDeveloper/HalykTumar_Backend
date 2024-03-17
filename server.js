@@ -21,6 +21,20 @@ app.get('/posts', async (req, res) => {
     });
 });
 
+
+//Получение поста по ID
+app.get('/posts/:id', async (req, res) => {
+    const { id } = req.params;
+
+    pool.query('SELECT * FROM posts WHERE id = ?', [id], (error, results, fields) => {
+        if (error) {
+            console.error('Error:', error);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+        res.status(200).json({ message: "Post successfully retrieved", post: results[0] });
+    });
+});
+
 // Добавление нового поста в базу данных
 app.post('/posts', async (req, res) => {
     const { id, user_id, department_id, title, appeal, description, date, image_one, image_two, image_three, image_four, video, status, place, address } = req.body;
